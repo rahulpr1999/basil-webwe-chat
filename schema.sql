@@ -1,0 +1,19 @@
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS messages;
+
+CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    name TEXT NOT NULL
+);
+
+CREATE TABLE messages (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    message TEXT,
+    sticker TEXT,
+    code TEXT,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users (id)
+);
