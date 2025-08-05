@@ -1,1 +1,48 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basil Webwe Chat</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="sidebar">
+            <h3>Online Users (<span id="online-count">0</span>)</h3>
+            <ul id="online-users"></ul>
+            <h3>Offline Users</h3>
+            <ul id="offline-users"></ul>
+        </div>
+        <div class="chat-window">
+            <div class="chat-header">
+                <h2>Basil Webwe Group Chat</h2>
+            </div>
+            <div class="messages" id="messages">
+                {% for msg in messages %}
+                    <div class="message">
+                        <span class="username">{{ msg.name }}:</span>
+                        {% if msg.message %}<p>{{ msg.message }}</p>{% endif %}
+                        {% if msg.sticker %}<img src="{{ msg.sticker }}" class="sticker">{% endif %}
+                        {% if msg.code %}<pre><code>{{ msg.code }}</code></pre>{% endif %}
+                        <span class="timestamp">{{ msg.timestamp }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+            <div id="typing-indicator"></div>
+            <div class="message-input">
+                <input type="text" id="message-input" placeholder="Type a message...">
+                <button id="emoji-btn">😊</button>
+                <input type="file" id="sticker-upload" accept="image/*" style="display: none;">
+                <button id="sticker-btn">🖼️</button>
+                <button id="code-btn"></></button>
+                <button id="send-btn">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
